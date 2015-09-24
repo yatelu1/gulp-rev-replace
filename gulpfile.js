@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     del = require('del'),
     minifycss = require('gulp-minify-css'),
     gulpif = require('gulp-if'),
+    connect = require('gulp-connect'),
     notify = require('gulp-notify');
 
 gulp.task("index", function () {
@@ -24,6 +25,13 @@ gulp.task("index", function () {
         .pipe(gulp.dest('public'))
         .pipe(notify({message: 'Task complete'}));
 });
+//connect
+gulp.task('connect', function () {
+    connect.server({
+        root: 'src',
+        livereload: true
+    });
+});
 //clean
 gulp.task('clean', function () {
     del(['public'])
@@ -32,3 +40,6 @@ gulp.task('clean', function () {
 gulp.task('default', ['clean'], function () {
     gulp.start('index');
 });
+
+gulp.task('serve', ['connect']);
+
